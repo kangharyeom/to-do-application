@@ -5,10 +5,10 @@ import lombok.Getter;
 
 @Builder
 @Getter
-public class TaskerResponseDto {
-    private long taskerId;
+public class TaskResponseDto {
+    private long taskId;
     private String title;
-    private String orderBrother;
-    private boolean complete;
+    private long todo_order;
+    private boolean completed;
 
 }

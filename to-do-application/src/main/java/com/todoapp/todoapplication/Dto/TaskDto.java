@@ -4,19 +4,17 @@ import lombok.Getter;
 
 import javax.validation.constraints.NotBlank;
 
+
 @Getter
-public class TaskerPatchDto {
+public class TaskDto {
     @NotBlank
-    private long taskerId;
+    private long taskId;
 
     @NotBlank
     private String title;
 
     @NotBlank
-    private long orderBrother;
+    private long todo_order;
 
 
-    public void setTaskerId(long taskerId) {
-        this.taskerId = taskerId;
-    }
 }

@@ -10,17 +10,18 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-public class Tasker {
+public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int taskerId;
+    private long taskId;
 
     @Column(length = 20, nullable = false)
     private String title;
 
     @Column(length = 20)
-    private int orderBrother;
+    private long todo_order;
 
-    private boolean complete;
+    @Column(nullable = false)
+    private boolean completed;
 
 }

@@ -5,15 +5,10 @@ import lombok.Getter;
 import javax.validation.constraints.NotBlank;
 
 @Getter
-public class TaskerDto {
-    @NotBlank
-    private long taskerId;
-
+public class TaskPostDto {
     @NotBlank
     private String title;
-
-    @NotBlank
-    private long orderBrother;
-
+    private long todo_order;
+    private boolean completed;
 
 }
