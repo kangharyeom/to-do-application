@@ -4,6 +4,7 @@ import com.todoapp.todoapplication.entity.Task;
 import com.todoapp.todoapplication.exception.BusinessLogicException;
 import com.todoapp.todoapplication.exception.ExceptionCode;
 import com.todoapp.todoapplication.repository.TaskRepository;
+import com.todoapp.todoapplication.utils.CustomBeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -13,9 +14,9 @@ import java.util.Optional;
 
 @Service
 public class TaskService {
-    private TaskRepository taskRepository;
+    private final TaskRepository taskRepository;
 
-    public TaskService(TaskRepository taskRepository) {
+    public TaskService(TaskRepository taskRepository, CustomBeanUtils<Task> beanUtils) {
         this.taskRepository = taskRepository;
     }
 
@@ -28,13 +29,17 @@ public class TaskService {
     public Task updateTask(Task task) {
         Task findTask = findVerifiedTask(task.getTaskId());
         Optional.ofNullable(task.getTitle())
-                .ifPresent(title -> findTask.setTitle(title));
-        Optional.ofNullable(task.getTodo_order())
-                .ifPresent(todo_order -> findTask.setTodo_order(todo_order));
-        Optional.ofNullable(task.isCompleted())
-                .ifPresent(completed -> findTask.setCompleted(completed));
+                .ifPresent(findTask::setTitle);
+        Optional.of(task.getTodo_order())
+                .ifPresent(findTask::setTodo_order);
+        Optional.of(task.isCompleted())
+                .ifPresent(findTask::setCompleted);
 
         return taskRepository.save(findTask);
+    }
+
+    public Task findTask(long taskId) {
+        return findVerifiedTask(taskId);
     }
 
     public Page<Task> findTasks(int page, int size) {
@@ -62,9 +67,5 @@ public class TaskService {
         Optional<Task> task = taskRepository.findByTitle(title);
         if (task.isPresent())
             throw new BusinessLogicException(ExceptionCode.TASK_EXISTS);
-    }
-
-    public Task findTask(long taskId) {
-        return findVerifiedTask(taskId);
     }
 }

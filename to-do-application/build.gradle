@@ -1,12 +1,19 @@
 plugins {
-	id 'java'
 	id 'org.springframework.boot' version '2.7.6'
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+	id 'war'
+	id 'java'
 }
 
 group = 'com.todoapp'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
+
+javadoc.options.encoding = 'UTF-8'
+
+tasks.withType(JavaCompile) {
+	options.encoding = 'UTF-8'
+}
 
 configurations {
 	compileOnly {
@@ -32,4 +39,10 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+tasks.named('javadoc') {
+	source = sourceSets.main.allJava
+	options.memberLevel = JavadocMemberLevel.PRIVATE
+	destinationDir = file("build/docs/javadoc")
 }

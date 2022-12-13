@@ -23,6 +23,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/")
 @Validated
+@CrossOrigin("https://todobackend.com")
 @Slf4j
 public class TaskController {
     private final static String TASK_DEFAULT_URL = "/";

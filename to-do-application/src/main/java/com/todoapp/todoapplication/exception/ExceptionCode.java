@@ -3,7 +3,7 @@ package com.todoapp.todoapplication.exception;
 import lombok.Getter;
 
 public enum ExceptionCode {
-    TASK_NOT_FOUND(404, "Member not found"),
+    TASK_NOT_FOUND(404, "Task not found"),
     TASK_EXISTS(409, "Task exists"),
     CANNOT_CHANGE_TASK(403, "Order can not change"),
     NOT_IMPLEMENTATION(501, "Not Implementation"),
